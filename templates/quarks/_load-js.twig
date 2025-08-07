@@ -1,0 +1,16 @@
+{% if enableAnimations %}
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+{% endif %}
+
+{% set path_base = "#{pathBaseAssets}js/" %}
+
+{{
+  jsBlocks(
+    [
+      {
+        path: 'https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js',
+        externalLink: true
+      }
+    ]
+  )
+}}

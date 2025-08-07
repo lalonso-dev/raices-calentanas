@@ -1,0 +1,16 @@
+.footer {
+  background-color: #222;
+  &__body {
+    min-height: 120px;
+    background-color: #0c0c0c;
+  }
+  &__end {
+    a {
+      --color: var(--white);
+      color: var(--color);
+      &:hover {
+        --color: #dc3545;
+      }
+    }
+  }
+}

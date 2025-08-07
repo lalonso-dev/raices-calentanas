@@ -1,0 +1,25 @@
+.mastHeadBanner {
+  min-height: 480px;
+  background-color: var(--white);
+  .tag,
+  .description {
+    color: var(--gray-1);
+  }
+  .tag {
+    font-size: 18px;
+    font-weight: 300;
+  }
+  .title {
+    font-size: clamp(30px, 4vw, 75px);
+    font-weight: 700;
+    line-height: 1.07;
+    color: var(--dark);
+  }
+  .description {
+    font-size: 17px;
+    font-weight: 400;
+  }
+  .img-absolute {
+    z-index: -2;
+  }
+}

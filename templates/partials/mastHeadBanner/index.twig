@@ -1,0 +1,57 @@
+{% set type = mastHead.type %}
+{% set title = mastHead.title ?? null %}
+{% set tag = mastHead.subtitle ?? null %}
+{% set description = mastHead.description ?? null %}
+{% set image = mastHead.image.one() ?? null %}
+{% set link = mastHead.fieldLink ?? null %}
+
+<div
+  class="{{
+  type
+  }} d-flex flex-column justify-content-center align-items-center position-relative"
+>
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-lg-6 p-3 d-flex flex-column justify-content-center align-items-start"
+      >
+        {% if tag %}
+          <p class="mb-0 tag">
+            {{ tag }}
+          </p>
+        {% endif %}
+        <h1 class="mb-3 mt-1 title">{{ title }}</h1>
+        {% if description %}
+          <p class="description mt-0 col-md-10">
+            {{ description }}
+          </p>
+        {% endif %}
+        {% if link %}
+          <a
+            href="{{ link.url }}"
+            class="px-3 py-2 mt-1 btn btn-outline-danger {{ link.class }}"
+            {{ link.id ? "id=#{link.id}" : null }}
+            {{ link.target ? "target=#{link.target}" : null }}
+            {{ link.rel ? "rel=#{link.rel}" : null }}
+          >
+            {{ link.title }}
+          </a>
+        {% endif %}
+      </div>
+      <div
+        class="col-lg-6 p-3 d-flex flex-column justify-content-center align-items-center"
+      >
+        {% if image %}
+          <img
+            loading="lazy"
+            src="{{ image.url }}"
+            alt="{{ image.title }}"
+            width="440"
+            height="100%"
+            class="img-fluid"
+          />
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

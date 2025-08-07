@@ -1,0 +1,61 @@
+{% extends '_layouts/components' %}
+
+{% set type = 'header' %}
+{% set siteLogo = general.logo.one() ?? null %}
+
+{% block customCp %}
+  <header class="header">
+    <div class="header__b">
+      <div class="container py-2 px-4">
+        <nav class="d-flex align-items-center justify-content-start">
+          {% if siteLogo %}
+            <a href="{{ siteUrl() }}">
+              <img src="{{ siteLogo.getUrl() }}"
+                alt="Raíces Calentanas"
+                class="img-logo"
+                loading="lazy"
+                width="300"
+                height="60" />
+            </a>
+          {% endif %}
+          {% if (megaMenu|length) > 0 %}
+            <ul class="m-0 p-0 d-flex align-items-center justify-content-start not-list-bullets ms-auto">
+              {% for item in megaMenu %}
+                {% set link = item.fieldLink ?? null %}
+                {% if link %}
+                  <li class="me-3">
+                    <a href="{{ link.url }}"
+                      class="btn px-3 py-2  {{ link.class }}"
+                      {{ link.id ? "id=#{link.id}" : null }}
+                      {{ link.target ? "target=#{link.target}" : null }}
+                      {{ link.rel ? "rel=#{link.rel}" : null }}>
+                      {{ item.title }}
+                    </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </nav>
+      </div>
+    </div>
+
+    {# Check if the url is the active url or if it is a suburl of an entry to activate the status in the navbar #}
+    {# 
+      {% set segmentTwo = craft.app.request.getSegment(2) %}
+      {% set activate = false %}
+
+      {% if segmentTwo %}
+        {% set get_segmentToUrl =
+          getSegmentFunction({
+            url: itemLink.getUrl(),
+            num: 1
+          })
+        %}
+        {% set activate = get_segmentToUrl == craft.app.request.getSegment(1) %}
+      {% else %}
+        {% set activate = entry.url ?? category.url ?? '' == itemLink.getUrl() %}
+      {% endif %}
+    #}
+  </header>
+{% endblock %}

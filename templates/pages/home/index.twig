@@ -1,0 +1,7 @@
+{% extends '_layouts' %}
+
+{% block content %}
+  {% include 'quarks/_load-components' with {
+    components: entry.components.all()
+  } %}
+{% endblock %}

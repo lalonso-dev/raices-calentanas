@@ -1,0 +1,82 @@
+{# -- SETTINGS LOAD ASSETS -- #}
+{% set loadAssets = loadAssets ?? true %}
+
+{# -- SETTINGS SWIPER -- #}
+{% set loadSwiper = loadSwiper ?? false %}
+{% set loadSwiperAsyncJs = loadSwiperAsyncJs ?? false %}
+{% set positionSwiper = positionSwiper ?? 'HEAD' %}
+
+{% block swiper %}
+  {% if loadSwiper %}
+    {% css '/assets/css/swiper-bundle.min.css' %}
+    {{
+      injectJs({
+        path: '/assets/js/swiper-bundle.min.js',
+        position: positionSwiper,
+        options: {
+          async: loadSwiperAsyncJs
+        }
+      })
+    }}
+  {% endif %}
+{% endblock %}
+
+{#                        
+┌──────────────────────────────────────────────────────────────────────┐
+│                       elementCp                                      │
+│  ┌────────────────────────────────────────────────────────────────┐  │
+│  │                    customCp                                    │  │
+│  │   ┌────────────────────────────────────────────────────────┐   │  │
+│  │   │                cpBody                                  │   │  │
+│  │   │  ┌──────────────────────────────────────────────────┐  │   │  │
+│  │   │  │             cpContainer                          │  │   │  │
+│  │   │  │    ┌────────────────────────────────────────┐    │  │   │  │
+│  │   │  │    │        cpContent                       │    │  │   │  │
+│  │   │  │    └────────────────────────────────────────┘    │  │   │  │
+│  │   │  └──────────────────────────────────────────────────┘  │   │  │
+│  │   └────────────────────────────────────────────────────────┘   │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+└──────────────────────────────────────────────────────────────────────┘
+#}
+
+{# --- PROPERTIES --- #}
+{% set type = type ?? null %}
+{% set hiddenComponent = hiddenComponent ?? false %}
+{% set mp = mp ?? null %}
+{% set baseClass = baseClass ?? type %}
+
+{# --- CONTAINER --- #}
+{% set constainerFluid = constainerFluid ?? false %}
+{% set classContainer = classContainer ?? '' %}
+
+{% block elementCp %}
+  {% if not hiddenComponent %}
+    {% block customCp %}
+      <section data-component-handle="{{ type }}" class="{{ mp }}">
+        {% block cpBody %}
+          {{ baseClass ? ("<div class=#{baseClass}>")|raw : null }}
+          {% block cpContainer %}
+            <div
+              class="{{ constainerFluid ? 'container-fluid' : 'container' }} {{
+              classContainer
+                ?? null
+              }}"
+            >
+              {% block cpContent %}
+                {% include 'quarks/_infoElement' %}
+              {% endblock %}
+            </div>
+          {% endblock %}
+          {{ baseClass ? '</div>'|raw : null }}
+        {% endblock %}
+      </section>
+    {% endblock %}
+  {% endif %}
+{% endblock %}
+
+{% block loadAssets %}
+  {% if type and loadAssets %}
+    {{ craft.vite.script(pathComponents|format(type)) }}
+  {% endif %}
+{% endblock %}
+

@@ -1,0 +1,28 @@
+{% set title = _block.title ?? null %}
+{% set list = _block.list ?? [] %}
+{% set description = _block.description ?? null %}
+{% set link = _block.link ?? {} %}
+
+<section class="text">
+  {% if title %}
+    <h2 class="mb-3 text__title">{{ title }}</h2>
+  {% endif %}
+
+  {% if list|length %}
+    <ul>
+      {% for i in list %}
+        <li>{{ i }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if description %}
+    <p>{{ description }}</p>
+  {% endif %}
+
+  {% if link %}
+    <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
+      {{ link.text }}
+    </a>
+  {% endif %}
+</section>

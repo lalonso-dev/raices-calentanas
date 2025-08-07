@@ -1,0 +1,35 @@
+{% set mtcc = mtcc ?? false %}
+{% set components = components ?? null %}
+{% set uniqueComponents = [] %}
+
+{% if components %}
+  {% for _block in components %}
+    {% set level = mtcc ? true : _block.level == 1 ? true : false %}
+
+    {% if not mtcc %}
+      {% do _block.useMemoized(components) %}
+    {% endif %}
+
+    {% if level %}
+      {% if not mtcc %}
+        {% set mp = getMP(_block.children.collect() ?? null) %}
+      {% endif %}
+
+      {% set type = _block.type.handle %}
+      {% set baseClass = type %}
+
+      {% set group = 'component' %}
+      {% set loadAssets = false %}
+
+      {% if existElement("/templates/#{group}s/#{type}") %}
+        {% if type not in uniqueComponents %}
+          {% set loadAssets = true %}
+          {% set uniqueComponents = uniqueComponents|merge([type]) %}
+        {% endif %}
+        {% include "components/#{type}/" %}
+      {% else %}
+        {% include 'quarks/_defaultComponent' %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}

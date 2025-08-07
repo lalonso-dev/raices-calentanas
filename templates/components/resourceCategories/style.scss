@@ -1,0 +1,28 @@
+.resourceCategories {
+  background-color: var(--white);
+  .global-text {
+    --font-size-text: clamp(14px, 4vw, 20px);
+  }
+  &__card {
+    overflow: hidden;
+    background-color: var(--bg-color-card);
+    border-radius: 20px;
+    &--title {
+      font-size: clamp(18px, 4vw, 20px);
+      font-weight: 600;
+      color: var(--dark);
+    }
+    &:hover {
+      .resourceCategories__image {
+        transform: scale3d(1.1, 1.1, 1);
+      }
+    }
+  }
+  &__image {
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    width: 110px;
+    height: 135px;
+    max-width: 100%;
+  }
+}

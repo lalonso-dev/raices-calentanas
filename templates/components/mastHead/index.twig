@@ -1,0 +1,9 @@
+{% extends '_layouts/components' %}
+
+{% set type = 'mastHead' %}
+
+{% block cpBody %}
+  {% include "partials/#{mastHead.type}" with {
+    mastHead: mastHead
+  } only %}
+{% endblock %}

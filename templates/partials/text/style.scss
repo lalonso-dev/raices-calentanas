@@ -1,0 +1,12 @@
+.text {
+  &__title {
+    font-size: 30px;
+    @media (max-width: 991.98px) {
+      font-size: 18px;
+    }
+  }
+  a,
+  a:hover {
+    color: #bc3fff;
+  }
+}

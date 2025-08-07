@@ -1,0 +1,33 @@
+{% extends '_layouts' %}
+
+{% set bgImage = entry.backgroundImage.one() ?? null %}
+{% set body = entry.body ?? '' %}
+{% set title = entry.itemTitle ?? '' %}
+{% set description = entry.description ?? '' %}
+
+{% block content %}
+  <div
+    class="aboutUs__banner position-relative d-flex flex-column justify-content-center align-items-start"
+  >
+    {% if bgImage %}
+      {% include 'quarks/_imageTransforms' with {
+        img: bgImage,
+        setClass: 'img-absolute'
+      } %}
+    {% endif %}
+    <div class="container py-3">
+      {% include 'quarks/breadcrumb' %}
+      <h1 class="my-1 title-2">{{ title }}</h1>
+      <p class="my-0 col-md-7 global-text">
+        {{ description }}
+      </p>
+    </div>
+  </div>
+
+  {% if body %}
+    <div class="container pb-5 pt-4 mb-4">
+      {{ body }}
+    </div>
+  {% endif %}
+  {{ craft.vite.script('templates/pages/%s/script.js'|format('aboutUs')) }}
+{% endblock %}

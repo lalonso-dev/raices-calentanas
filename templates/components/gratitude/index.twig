@@ -1,0 +1,14 @@
+{% extends '_layouts/components' %}
+
+{% set type = type ?? 'gratitude' %}
+{% set classContainer = 'pb-3 pt-2' %}
+
+{% set title = _block.itemTitle ?? '' %}
+{% set description = _block.description ?? '' %}
+
+{% block cpContent %}
+  <h2 class="title-2 my-1 text-center">{{ title }}</h2>
+  <div class="global-text mt-0 pb-3">
+    {{ description }}
+  </div>
+{% endblock %}

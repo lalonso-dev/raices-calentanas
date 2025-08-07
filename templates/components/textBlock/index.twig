@@ -1,0 +1,38 @@
+{% extends '_layouts/components' %}
+
+{% set type = 'textBlock' %}
+{% set loadAssets = true %}
+
+{% set content = [
+  {
+    description: 'Este proyecto utiliza el template OnDemandLoading para simplificar el
+        proceso de instalación al iniciar un proyecto de Craft desde cero.
+        Diseñado especialmente para proyectos de Brand Industry.'
+  },
+  {
+    title: 'Documentación',
+    description: '
+    Consulta la documentación detallada para obtener información sobre la
+        estructura del proyecto, requisitos y más:',
+    link: {
+      url: 'https://www.notion.so/brandindustry/OnDemandLoading-Template-9d6bb16b67094842b1a32b2de89f018e?pvs=4',
+      text: 'Documentación'
+    }
+  },
+  {
+    title: 'Requisitos',
+    list: ['Docker', 'DDEV instalado'],
+    description: 'Al clonar y adaptar el repositorio, revisa los archivos `package.json` y
+        `composer.json` para ajustar bibliotecas y complementos según sea
+        necesario. Modifica el archivo de configuración de DDEV según tus necesidades.
+        '
+  }
+] %}
+{% block componentContent %}
+  <div class="my-5 textBlock__body px-5 py-4">
+    <h1 class="mb-3">Bienvenido al Proyecto OnDemandLoading</h1>
+    {% for _block in content %}
+      {% include 'partials/text' %}
+    {% endfor %}
+  </div>
+{% endblock %}

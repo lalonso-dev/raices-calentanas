@@ -1,0 +1,27 @@
+:root {
+  --font-size-text: clamp(14px, 4vw, 16px);
+  --font-weight-text: 400;
+  --color-text: var(--dark);
+}
+
+.title-2,
+.global-text,
+.subtitle {
+  font-size: var(--font-size-text);
+  font-weight: var(--font-weight-text);
+  color: var(--color-text);
+}
+
+.title-2 {
+  --font-size-text: clamp(18px, 4vw, 44px);
+  --font-weight-text: 600;
+}
+
+.subtitle {
+  --font-size-text: clamp(16px, 4vw, 22px);
+  --font-weight-text: 600;
+}
+
+.global-text {
+  --color-text: var(--gray-1);
+}

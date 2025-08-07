@@ -1,0 +1,55 @@
+{
+  "require": {
+    "bymayo/pdf-transform": "5.0.1",
+    "craftcms/ckeditor": "4.9.0",
+    "craftcms/cms": "5.8.12",
+    "craftsnippets/craft-image-toolbox": "3.0.1",
+    "mmikkel/cp-field-inspect": "2.0.4",
+    "nystudio107/craft-seomatic": "5.1.16",
+    "nystudio107/craft-vite": "5.0.1",
+    "putyourlightson/craft-elements-panel": "3.0.1",
+    "putyourlightson/craft-entry-count": "4.0.0",
+    "putyourlightson/craft-sprig": "3.6.1",
+    "sebastianlenz/linkfield": "dev-main",
+    "solspace/craft-freeform": "5.11.9",
+    "spicyweb/craft-neo": "5.4.5",
+    "studioespresso/craft-dumper": "5.0.1",
+    "verbb/super-table": "4.0.5",
+    "vlucas/phpdotenv": "^5.4.0",
+    "youandmedigital/breadcrumb": "3.0.0"
+  },
+  "require-dev": {
+    "craftcms/generator": "^2.0.1",
+    "yiisoft/yii2-shell": "^2.0.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "tbi\\": "modules/tool-box/src/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "craftcms/plugin-installer": true,
+      "yiisoft/yii2-composer": true
+    },
+    "sort-packages": true,
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "8.2"
+    }
+  },
+  "prefer-stable": true,
+  "minimum-stability": "beta",
+  "scripts": {
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example.dev', '.env');\""
+    ]
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://composer.craftcms.com",
+      "canonical": false
+    }
+  ]
+}

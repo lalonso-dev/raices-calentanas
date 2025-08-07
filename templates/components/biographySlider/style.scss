@@ -1,0 +1,20 @@
+.biographySlider {
+  &__slider {
+    .subtitle {
+      --font-size-text: clamp(16px, 4vw, 35px);
+      --color-text: var(--dark);
+      --font-weight-text: 500;
+    }
+    .global-text {
+      --font-size-text: clamp(16px, 4vw, 18px);
+      p {
+        margin: 0.3rem 0;
+      }
+    }
+  }
+  &__image {
+    padding-top: 600px;
+    border-radius: 25px;
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,85 @@
+@use "../utilities";
+
+:root {
+  --font-family: "Poppins", serif;
+}
+
+* {
+  box-sizing: border-box;
+  &:focus {
+    box-shadow: 0 0 0 0 !important;
+    outline: -webkit-focus-ring-color auto 0px;
+  }
+}
+
+a,
+a:focus,
+a:hover {
+  outline: none;
+  text-decoration: none !important;
+}
+
+.customMain {
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 3000px) {
+  main,
+  footer,
+  header {
+    max-width: 1320px !important;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 65px; /* set to the height of your header */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+  letter-spacing: 0.5px;
+  background-color: var(--white);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: 0.2px;
+  color: var(--dark);
+}
+
+footer {
+  margin-top: auto;
+}
+
+.img-absolute {
+  @extend %img-absolute;
+}
+
+img:not([src]):not([srcset]) {
+  visibility: hidden;
+}
+
+@-moz-document url-prefix() {
+  img:-moz-loading {
+    visibility: hidden;
+  }
+}
+
+img:not([alt]) {
+  border: 4px red dashed !important;
+}
+.not-list-bullets {
+  list-style: none !important;
+}

@@ -1,0 +1,44 @@
+{% extends '_layouts/components' %}
+
+{% set title = _block.itemTitle ?? '' %}
+{% set description = _block.description ?? '' %}
+{% set grid = _block.grid.all() ?? [] %}
+
+{% block cpContent %}
+  <div class="pt-4 pb-5 text-center">
+    {% if title %}
+      <h2 class="title-2 mb-3 col-lg-6 mx-lg-auto">{{ title }}</h2>
+    {% endif %}
+    {% if description %}
+      <p class="global-text mb-5 col-lg-5 mx-lg-auto">
+        {{ description }}
+      </p>
+    {% endif %}
+
+    <div class="row g-3 text-start">
+      {% for item in grid %}
+        {% set description = item.description ?? '' %}
+        {% set icon = item.itemIcon.one() ?? null %}
+        <div class="col-md-6 col-lg-3 mb-4">
+          {% if icon %}
+            <div class="mb-2">
+              {{
+                svg(icon)|attr({
+                  width: 50,
+                  height: 50,
+                  class: 'svg-icon'
+                })
+              }}
+            </div>
+          {% endif %}
+          <h3 class="subtitle my-2 col-lg-10">{{ item.title }}</h3>
+          {% if description %}
+            <p class="global-text mt-0 col-lg-10">
+              {{ item.description }}
+            </p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

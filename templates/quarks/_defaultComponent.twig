@@ -1,0 +1,14 @@
+{% extends '_layouts/components' %}
+
+{% block customComponent %}
+  <div class="container py-3">
+    <div class="alert alert-primary">
+      A default element is being loaded since the component does not exist in
+      the directory <code>/templates/components/</code>. You should create the
+      component in the mentioned directory. Below you can find the information
+      of the component to create.
+    </div>
+
+    {% include 'quarks/_infoElement' %}
+  </div>
+{% endblock %}

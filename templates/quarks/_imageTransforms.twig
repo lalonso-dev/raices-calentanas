@@ -1,0 +1,88 @@
+{% if img %}
+  {% set classCustom = setClass ?? '' %}
+  {% set lazyload = notLazy ?? true %}
+  {% set parameters = {
+    class: classCustom,
+    alt: alt ?? img.title
+  } %}
+
+  {% if lazyload %}
+    {% set defualtImage = defualtImage ?? null %}
+    {% set parametersDefualtImage = defualtImage
+      ? defualtImage|merge({
+        mode: 'crop',
+        quality: 90,
+        position: 'top-center',
+        format: craft.app.images.getSupportsWebP() ? 'webp' : 'jpg'
+      })
+      : {
+        width: 1440,
+        height: 780,
+        mode: 'crop',
+        quality: 90,
+        position: 'top-center',
+        format: craft.app.images.getSupportsWebP() ? 'webp' : 'jpg'
+      }
+    %}
+    {% set parameters =
+      parameters|merge({
+        class: classCustom,
+        loading: 'lazy',
+        data: {
+          src: img.getUrl(parametersDefualtImage)
+        }
+      })
+    %}
+  {% endif %}
+
+  {% set settings = [] %}
+
+  {% set transforms = transforms
+    ?? {
+      '(min-width: 1200px)': {
+        width: 1920,
+        height: 900
+      },
+      '(min-width: 992px)': {
+        width: 1440,
+        height: 780
+      },
+      '(min-width: 768px)': {
+        width: 1024,
+        height: 780
+      },
+      '(min-width: 576px)': {
+        width: 480,
+        height: 800
+      },
+      '': {
+        width: 380,
+        height: 700
+      }
+    }
+  %}
+
+  {% if (transforms|length) > 0 %}
+    {% for key, value in transforms %}
+      {% set settings =
+        settings|merge(
+          [
+            {
+              asset: img,
+              transform: {
+                position: 'top-center',
+                width: value.width ?? 'auto',
+                height: value.height ?? 'auto',
+                mode: 'crop',
+                quality: 80,
+                format: 'jpg'
+              },
+              media: key
+            }
+          ]
+        )
+      %}
+    {% endfor %}
+    {{ craft.images.pictureMultiple(settings, parameters) }}
+  {% endif %}
+{% endif %}

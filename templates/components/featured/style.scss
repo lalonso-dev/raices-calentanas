@@ -1,0 +1,11 @@
+.featured {
+  background-color: var(--white2);
+  &__card {
+  }
+  &__image {
+    overflow: hidden;
+    border-radius: 10px;
+    padding-top: 400px;
+    background-color: var(--white);
+  }
+}

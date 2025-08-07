@@ -1,0 +1,79 @@
+{% extends '_layouts/components' %}
+
+{% set type = type ?? 'biographySlider' %}
+{% set loadSwiper = true %}
+
+{% set title = _block.itemTitle ?? '' %}
+{% set tag = _block.tag ?? '' %}
+{% set biographies = _block.biography.all() %}
+
+{% block cpContent %}
+  {% if tag %}
+    <p class="mb-0 global-text">
+      {{ tag }}
+    </p>
+  {% endif %}
+  {% if title %}
+    <h2 class="title-2 my-2 col-lg-6">{{ title }}</h2>
+  {% endif %}
+
+  <div class="swiper biographySlider__slider py-4">
+    <div class="swiper-wrapper">
+      {% for slide in biographies %}
+        {% set image = slide.image.one() ?? null %}
+        {% set description = slide.description ?? '' %}
+        {% set link = slide.fLink ?? null %}
+        <div class="swiper-slide">
+          <div class="row">
+            <div class="col-12 col-md-6 py-1">
+              {% if image %}
+                {% set focal = backgroundImage.focalPoint ?? [0.5, 0.5] %}
+                {% set objectPosition = "#{(focal[0] * 100)|number_format(
+                  0
+                )}% #{(focal[1] * 100)|number_format(0)}%"
+                %}
+
+                <div
+                  class="biographySlider__image col-10 mx-auto position-relative"
+                >
+                  <img
+                    style="object-position: {{ objectPosition }};"
+                    loading="lazy"
+                    width="500"
+                    height="500"
+                    src="{{
+                    image.getUrl({
+                      width: 500,
+                      height: 500,
+                      mode: 'crop',
+                      quality: 90,
+                      format: 'webp'
+                    })
+                    }}"
+                    alt="{{ slide.title }}"
+                    class="img-absolute"
+                  />
+                </div>
+              {% endif %}
+            </div>
+            <div
+              class="col-12 col-md-6 px-2 py-3 d-flex flex-column justify-content-center align-items-start"
+            >
+              <h3 class="subtitle my-0">{{ slide.title }}</h3>
+              <div class="global-text mb-4">
+                {{ slide.description }}
+              </div>
+              {% if link and not link.isEmpty() %}
+                {{
+                  link.getLink({
+                    class: 'btn btn-outline-danger px-4 py-2'
+                  })
+                }}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

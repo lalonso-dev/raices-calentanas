@@ -1,0 +1,1 @@
+const n=function(){if(!document.querySelector('[loading="lazy"]'))return;new LazyLoad({container:document.querySelector("body"),elements_selector:'[loading="lazy"]'}).update()};n();try{typeof AOS<"u"?AOS.init({once:!0}):console.log("AOS is not loaded in the project.")}catch(e){console.warn("Exception in animation.js => "+e)}

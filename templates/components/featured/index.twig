@@ -1,0 +1,35 @@
+{% extends '_layouts/components' %}
+
+{% set type = type ?? 'featured' %}
+{% set classContainer = 'py-5' %}
+
+{% set title = _block.itemTitle ?? '' %}
+{% set description = _block.description ?? '' %}
+
+{% block cpContent %}
+  <h2 class="title-2 my-1 text-center pt-4">{{ title }}</h2>
+  <p class="global-text mt-0 col-lg-6 mx-auto text-center">
+    {{ description }}
+  </p>
+
+  <div class="py-4 row gx-3 gy-4">
+    {% for item in 0..7 %}
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="featured__card">
+          <div class="featured__image"></div>
+          <div class="p-3 text-center">
+            <p class="my-0">
+              Marcha
+            </p>
+            <p class="my-1">
+              Soldier by olivia wilson
+            </p>
+            <p class="my-0">
+              Jonathan Jackson
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
