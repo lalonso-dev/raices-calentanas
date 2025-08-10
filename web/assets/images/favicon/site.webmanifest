@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "Raices Calentanas",
+  "short_name": "Raices Calentanas",
   "icons": [
     {
       "src": "/assets/images/favicon/web-app-manifest-192x192.png",
@@ -19,3 +19,4 @@
   "background_color": "#ffffff",
   "display": "standalone"
 }
+
