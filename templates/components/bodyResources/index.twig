@@ -13,17 +13,22 @@
   }
 ] %}
 
+{% set sortByData = [
+  {
+    value: 'score asc',
+    label: 'Relevancy'
+  },
+  {
+    value: 'title asc',
+    label: 'Alphabetical'
+  }
+] %}
+
 {# Queries #}
 {% set authors = craft.categories().group('authors').all() %}
 {% set contentTypes = craft.categories().group('contentType').all() %}
 {% set genderSheets = craft.categories().group('gender').all() %}
-{% set entries =
-  craft.entries().section('ResourceEntries').level(1).orderBy(
-    'postDate desc'
-  ).limit(
-    8
-  )
-%}
+{% set entries = craft.entries().section('ResourceEntries').level(1).limit(8) %}
 
 {% if categoryId %}
   {% do entries.relatedTo(categoryId) %}
@@ -59,10 +64,12 @@
   {% do entries.search('*' ~ search ~ '*') %}
 {% endif %}
 
+{% do entries.orderBy(sortBy) %}
+
 {% set pageInfo = sprig.paginate(entries, page) %}
 {% set sheets = pageInfo.pageResults %}
 
-{% set dynamicPages = pageInfo.getDynamicRangeUrls(3) %}
+{% set dynamicPages = pageInfo.getDynamicRangeUrls(5) %}
 {% set totalPages = pageInfo.totalPages %}
 
 <div
@@ -208,6 +215,39 @@
         </div>
       </div>
     </form>
+
+    <div
+      class="d-flex justify-content-between gap-2 gap-md-3 align-items-center mt-4"
+    >
+      <div class="">
+        <p class="my-1">
+          Results
+        </p>
+        <div class="global-text">
+          {{ pageInfo.first ~ ' - ' ~ pageInfo.last ~ ' of ' ~ pageInfo.total }}
+        </div>
+      </div>
+      <div
+        class="d-flex align-items-center gap-1 gap-sm-2 gap-md-4 flex-wrap flex-md-nowrap"
+      >
+        <div class="form-floating">
+          <select sprig name="sortBy" id="sortByData" class="form-select">
+            {% for element in sortByData %}
+              <option
+                {{
+                (sortBy|length) > 0 and sortBy == element.value
+                  ? 'selected'
+                }}
+                value="{{ element.value }}"
+              >
+                {{ element.label }}
+              </option>
+            {% endfor %}
+          </select>
+          <label for="floatingSelect">Ordenar por</label>
+        </div>
+      </div>
+    </div>
 
     <div id="body-results">
       {% if (sheets|length) > 0 %}
