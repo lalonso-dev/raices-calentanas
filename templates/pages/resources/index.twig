@@ -1,12 +1,21 @@
 {% extends '_layouts' %}
 
-{% set title = entry.itemTitle ?? '' %}
+{% set categoryId = '' %}
+{% set category = category ?? null %}
+{% if category %}
+  {% set categoryId = category.id %}
+  {% set title = "Explora nuestro catálogo de #{category.title}" %}
+{% else %}
+  {% set title = entry.itemTitle ?? '' %}
+{% endif %}
+
 {% block content %}
   {{
     sprig(
       'components/bodyResources/index',
       {
-        title: title
+        title: title,
+        categoryId: categoryId
       }
     )
   }}
