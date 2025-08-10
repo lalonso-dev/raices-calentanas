@@ -1,0 +1,319 @@
+{% do craft.entryCount.increment(entry.id) %}
+
+{% extends '_layouts' %}
+
+{% set moreInfo = entry.moreInfo ?? null %}
+{% set description = entry.description ?? '' %}
+{% set source = entry.source ?? null %}
+{% set autorSheet = entry.autorSheet.one() ?? null %}
+{% set contentType = entry.contentType.one() ?? null %}
+{% set gender = entry.gender.one() ?? null %}
+{% set instrument = entry.instrument ?? null %}
+{% set version = entry.version ?? null %}
+{% set yearComposition = entry.yearComposition ?? null %}
+{% set tone = entry.tone ?? null %}
+{% set difficulty = entry.difficulty ?? null %}
+{% set format = entry.format ?? null %}
+
+{# Files #}
+{% set scoreArchive = entry.scoreArchive.one() ?? null %}
+{% set fileMus = entry.fileMus.one() ?? null %}
+
+{% set downloadableFile = entry.downloadableFile ?? false %}
+
+{# Queries #}
+{% set others =
+  craft.entries().section('ResourceEntries').id("not #{entry.id}").limit(
+    4
+  ).all()
+%}
+{% set relatedContent = entry.relatedContent.all() %}
+
+{% block main %}
+  {{
+    jsBlocks(
+      [
+        {
+          path: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js',
+          externalLink: true,
+          position: 'HEAD'
+        },
+        {
+          path: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js',
+          externalLink: true,
+          position: 'HEAD'
+        }
+      ]
+    )
+  }}
+  <main class="entryResources pt-4">
+    <div class="entryResources__body pt-4">
+      <div class="container">
+        <div class="row gx-4 gy-3">
+          <div class="col-12 col-lg-6">
+            <div class="entryResources__file p-3">
+              <div
+                id="pdf-viewer"
+                style="width:100%;max-width:900px;margin:0 auto;"
+              ></div>
+              <div
+                style="margin-bottom: 10px; text-align: center;"
+                class="mt-3"
+              >
+                <button id="zoomOut" type="button" class="btn btn-outline-dark">
+                  −
+                </button>
+                <button
+                  id="zoomReset"
+                  type="button"
+                  class="btn btn-outline-dark"
+                >
+                  100%
+                </button>
+                <button id="zoomIn" type="button" class="btn btn-outline-dark">
+                  +
+                </button>
+              </div>
+            </div>
+
+            {% if downloadableFile %}
+              <div class="entryResources__moreInfo p-4 my-2">
+                <p class="global-text mb-3 mt-2">
+                  <strong>Descarga el archivo</strong>
+                </p>
+
+                <button
+                  onclick="handleDownloadClick(this,'file')"
+                  class="btn btn-outline-danger my-2 me-2"
+                  data-title="{{ scoreArchive.title }}"
+                >
+                  Descargar{% if format %}
+                    {{ format.label }}
+                  {% endif %}
+                </button>
+                {% if fileMus %}
+                  <button
+                    onclick="handleDownloadClick(this,'mus',)"
+                    class="btn btn-outline-info my-2 me-2"
+                    data-title="{{ fileMus.title }}"
+                  >
+                    Descargar MUS
+                  </button>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="col-12 col-lg-6 p-4 entryResources__info">
+            {% include 'quarks/breadcrumb' %}
+            <h1 class="entryResources__title my-2 title-2">
+              {{ entry.title }}
+            </h1>
+            {% if description %}
+              <div class="global-text entryResources__description">
+                {{ description }}
+              </div>
+            {% endif %}
+
+            <div class="accordion" id="accordionInfo">
+              <div class="accordion-item">
+                <h2 class="accordion-header my-0">
+                  <button
+                    class="accordion-button global-text"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                  >
+                    <strong>Detalles</strong>
+                  </button>
+                </h2>
+                <div
+                  id="collapseOne"
+                  class="accordion-collapse collapse show"
+                  data-bs-parent="#accordionInfo"
+                >
+                  <div class="accordion-body">
+                    <ul class="global-text mb-3 pb-2">
+                      {% if autorSheet %}
+                        <li>
+                          <strong>Autor:</strong>
+                          {{ autorSheet.title }}
+                        </li>
+                      {% endif %}
+                      {% if contentType %}
+                        <li>
+                          <strong>Tipo:</strong>
+                          {{ contentType.title }}
+                        </li>
+                      {% endif %}
+                      {% if gender %}
+                        <li>
+                          <strong>Género:</strong>
+                          {{ gender.title }}
+                        </li>
+                      {% endif %}
+                      {% if instrument %}
+                        <li>
+                          <strong>Instrumento:</strong>
+                          {{ instrument.label }}
+                        </li>
+                      {% endif %}
+                      {% if version %}
+                        <li>
+                          <strong>Version:</strong>
+                          {{ version }}
+                        </li>
+                      {% endif %}
+                      {% if yearComposition %}
+                        <li>
+                          <strong>Fecha de composición:</strong>
+                          {{ yearComposition|date('F j, Y') }}
+                        </li>
+                      {% endif %}
+                      {% if tone %}
+                        <li>
+                          <strong>Tono:</strong>
+                          {{ tone.label }}
+                        </li>
+                      {% endif %}
+                      {% if difficulty %}
+                        <li>
+                          <strong>Dificultad:</strong>
+                          {{ difficulty.label }}
+                        </li>
+                      {% endif %}
+                      {% if format %}
+                        <li>
+                          <strong>Formato:</strong>
+                          {{ format.label }}
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              {% if moreInfo or source %}
+                <div class="accordion-item">
+                  <h2 class="accordion-header my-0">
+                    <button
+                      class="accordion-button collapsed global-text"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="collapseTwo"
+                    >
+                      <strong>Más información</strong>
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseTwo"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionInfo"
+                  >
+                    <div
+                      class="accordion-body global-text entryResources__description"
+                    >
+                      {% if moreInfo %}
+                        {{ moreInfo }}
+                      {% endif %}
+
+                      {% if source %}
+                        <p class="global-text my-3">
+                          <strong>Fuente</strong>
+                          <ul class="global-text">
+                            <li>{{ source }}</li>
+                          </ul>
+                        </p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if (relatedContent|length) > 0 %}
+      <div class="container py-4">
+        <h2 class="my-3 title-2">Archivos relacionados</h2>
+        <div class="row g-3">
+          {% for item in relatedContent %}
+            <div class="col-6 col-md-4 col-lg-3">
+              {% include 'partials/featuredCard/' with {
+                sheet: item
+              } %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    <div class="py-5 my-4 entryResources__thanks">
+      <div class="container">
+        <h2 class="my-3 title-2 text-center">Gracias por formar parte</h2>
+        <div class="global-text mt-0 pb-3">
+          <p>
+            Agradecemos profundamente a todas las personas que, de forma
+            generosa y desinteresada, han compartido partituras, grabaciones,
+            conocimientos y memorias musicales que hoy forman parte de este
+            sitio.
+          </p>
+          <p>
+            <strong>Raíces Calentanas</strong> es un proyecto libre y sin fines de
+            lucro, creado con el único propósito de preservar, difundir y celebrar
+            el repertorio musical tradicional de la región de Tierra Caliente.
+          </p>
+          <p>
+            Este sitio no busca generar ganancias ni monetizar el contenido. Sin
+            embargo, si alguna persona desea realizar una aportación económica,
+            será destinada exclusivamente al mantenimiento técnico, los costos
+            de alojamiento web, y la mejora continua del proyecto. Nuestro mayor
+            compromiso es con la cultura y la comunidad: que la música siga
+            viva, que las nuevas generaciones puedan aprender de ella, y que
+            cada partitura aquí compartida sea una semilla de memoria y
+            pertenencia.
+          </p>
+          <p>
+            Gracias por ser parte de este esfuerzo colectivo por mantener vivas
+            nuestras raíces.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {% if (others|length) > 0 %}
+      <div class="container pb-4 mb-5 pt-1">
+        <h2 class="my-3 title-2">Ultimos archivos</h2>
+        <div class="row g-3">
+          {% for item in others %}
+            <div class="col-6 col-md-4 col-lg-3">
+              {% include 'partials/featuredCard/' with {
+                sheet: item
+              } %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </main>
+
+  {{
+    craft.vite.script(
+      'templates/pages/resources/%s/script.js'|format('entryResources')
+    )
+  }}
+
+  {% if scoreArchive or fileMus %}
+    {% set appData %}
+      window.ufile = {{ scoreArchive.url|base64_encode|json_encode|raw }}
+
+      {% if fileMus %}
+        window.ufileMus = {{ fileMus.url|base64_encode|json_encode|raw }}
+      {% endif %}
+    {% endset %}
+    {% do view.registerJs(appData, POS_HEAD) %}
+  {% endif %}
+{% endblock %}

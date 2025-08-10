@@ -1,0 +1,21 @@
+@forward "@partials/featuredCard/style";
+
+.form-control {
+  padding: 0.375rem 0.95rem;
+}
+
+.resources {
+  &__banner {
+    min-height: 450px;
+    background-color: var(--white2);
+    @media (max-width: 991.98px) {
+      min-height: 340px;
+    }
+  }
+  &__body {
+    background-color: var(--white);
+    min-height: 300px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+}

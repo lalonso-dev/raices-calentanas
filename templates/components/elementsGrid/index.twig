@@ -19,7 +19,7 @@
       {% for item in grid %}
         {% set description = item.description ?? '' %}
         {% set icon = item.itemIcon.one() ?? null %}
-        <div class="col-md-6 col-lg-3 mb-4">
+        <div class="col-6 col-lg-3 mb-4">
           {% if icon %}
             <div class="mb-2">
               {{

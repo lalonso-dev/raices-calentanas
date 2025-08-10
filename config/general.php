@@ -44,7 +44,7 @@ $settings = GeneralConfig::create()
     ])
     ->extraFileKinds([
         'svg' => [
-            'label' => 'SVG',
+            'label' => 'svg',
             'extensions' => ['svg'],
         ],
     ])

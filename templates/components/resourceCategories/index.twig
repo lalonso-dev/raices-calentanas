@@ -6,9 +6,7 @@
 {% set title = _block.itemTitle ?? '' %}
 {% set description = _block.description ?? '' %}
 {% set link = _block.fLink ?? null %}
-{% set categories =
-  craft.categories().group('resourceCategory').limit(5).all()
-%}
+{% set categories = craft.categories().group('gender').limit(5).all() %}
 
 {% block cpContent %}
   {% if (categories|length) > 0 %}

@@ -1,0 +1,96 @@
+{% set title = sheet.title ?? '' %}
+{% set gender = sheet.gender.one() ?? null %}
+{% set author = sheet.autorSheet.one() ?? null %}
+{% set pdf = sheet.scoreArchive.one() ?? null %}
+{% set url = sheet.url ?? null %}
+
+{% set contentType = sheet.contentType.one() ?? null %}
+{% set difficulty = sheet.difficulty ?? '' %}
+{% set format = sheet.format ?? null %}
+{% set statusSheets = sheet.statusSheets ?? null %}
+
+{% set bodyImage %}
+  {% if pdf %}
+    {% set transformedPdf = craft.pdfTransform.render(pdf) %}
+    <img
+      width="300"
+      height="300"
+      src="{{ transformedPdf.url }}"
+      alt="{{ pdf.title }}"
+      class="img-absolute"
+    />
+  {% endif %}
+{% endset %}
+
+{% set badges %}
+  <ul
+    class="p-0 m-0 not-list-bullets featuredCard__badges d-flex justify-content-end align-items-center flex-wrap"
+  >
+    {% if statusSheets %}
+      <li
+        class="featuredCard__badges--item px-2 py-1 m-1"
+        style="--bg-color-badge: {{ statusSheets.color }}"
+      >
+        {{ statusSheets.label }}
+      </li>
+    {% endif %}
+
+    {% if contentType %}
+      <li class="featuredCard__badges--item px-2 py-1 text-center m-1">
+        {{ contentType.title }}
+      </li>
+    {% endif %}
+    {% if difficulty %}
+      <li
+        class="featuredCard__badges--item px-2 py-1 m-1"
+        style="--bg-color-badge: {{ difficulty.color }}"
+      >
+        {{ difficulty.label }}
+      </li>
+    {% endif %}
+    {% if format %}
+      <li class="featuredCard__badges--item px-2 py-1 m-1">
+        {{ format.label }}
+      </li>
+    {% endif %}
+  </ul>
+{% endset %}
+
+<div class="featuredCard">
+  {% if url %}
+    <a href="{{ url }}" class="d-block featuredCard__image position-relative">
+      {{ badges }}
+      {{ bodyImage }}
+    </a>
+  {% else %}
+    <div class="featuredCard__image position-relative">
+      {{ badges }}
+      {{ bodyImage }}
+    </div>
+  {% endif %}
+  <div class="p-3 text-center">
+    {% if gender %}
+      <p class="my-0 global-text">
+        {{ gender.title }}
+      </p>
+    {% endif %}
+
+    {% if title %}
+      {% if url %}
+        <a href="{{ url }}" class="my-1 d-block featuredCard__title">
+          {{ title }}
+        </a>
+      {% else %}
+        <p class="my-1 featuredCard__title">
+          {{ title }}
+        </p>
+      {% endif %}
+    {% endif %}
+
+    {% if author %}
+      <p class="my-0 global-text">
+        {{ author.title }}
+      </p>
+    {% endif %}
+  </div>
+</div>

@@ -2,7 +2,59 @@
 
 {% set type = 'sideBar' %}
 {% set loadAssets = true %}
+{% set currentPath =
+  craft.app.request.getPathInfo()
+    |split('?', 2)
+    |first
+    |split('#', 2)
+    |first
+    |trim('/')
+%}
 
 {% block customCp %}
-  <aside></aside>
+  <aside class="sideBar d-none" id="sideBar">
+    <div class="sideBar__body pt-3 pb-5">
+      <section class="header-spacing-top"></section>
+      <div class="container">
+        <ul class="p-0 m-0 not-list-bullets mt-1">
+          {% for menu in megaMenu %}
+            {% set itemLink = menu.fieldLink ?? null %}
+
+            {% set targetPath =
+              itemLink.url
+                |split('?', 2)
+                |first
+                |split('#', 2)
+                |first
+                |replace({
+                  'http://': '',
+                  'https://': ''
+                })
+                |split('/', 2)
+                |last
+                |trim('/')
+            %}
+            {% set isActive = currentPath == targetPath
+              or (targetPath and currentPath starts with targetPath ~ '/')
+            %}
+
+            {% if itemLink %}
+              <li class="my-1 sideBar__item py-2">
+                <a
+                  class="btn px-2 py-1 sideBar__link {{
+                  isActive
+                    ? 'btn-outline-danger'
+                    : 'global-text'
+                  }}"
+                  href="{{ itemLink.url }}"
+                >
+                  {{ menu.title }}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </aside>
 {% endblock %}

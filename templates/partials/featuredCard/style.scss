@@ -1,0 +1,30 @@
+.featuredCard {
+  &__image {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    overflow: hidden;
+    border-radius: 10px;
+    padding-top: 400px;
+    background-color: var(--white);
+  }
+  &__badges {
+    position: absolute;
+    right: 5%;
+    top: 4%;
+    z-index: 2;
+    &--item {
+      border-radius: 10px;
+      color: var(--white);
+      background-color: var(--bg-color-badge, var(--gray-1));
+      --font-size-text: clamp(10px, 4vw, 12px);
+      font-size: var(--font-size-text);
+      font-weight: 300;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    }
+  }
+  &__title {
+    --font-size-text: clamp(16px, 4vw, 20px);
+    font-size: var(--font-size-text);
+    color: var(--dark);
+    font-weight: 600;
+  }
+}

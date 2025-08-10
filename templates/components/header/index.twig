@@ -2,33 +2,68 @@
 
 {% set type = 'header' %}
 {% set siteLogo = general.logo.one() ?? null %}
+{% set currentPath =
+  craft.app.request.getPathInfo()
+    |split('?', 2)
+    |first
+    |split('#', 2)
+    |first
+    |trim('/')
+%}
 
 {% block customCp %}
   <header class="header">
     <div class="header__b">
-      <div class="container py-2 px-4">
+      <div class="container py-2">
         <nav class="d-flex align-items-center justify-content-start">
           {% if siteLogo %}
             <a href="{{ siteUrl() }}">
-              <img src="{{ siteLogo.getUrl() }}"
+              <img
+                src="{{ siteLogo.getUrl() }}"
                 alt="Raíces Calentanas"
                 class="img-logo"
                 loading="lazy"
                 width="300"
-                height="60" />
+                height="60"
+              />
             </a>
           {% endif %}
           {% if (megaMenu|length) > 0 %}
-            <ul class="m-0 p-0 d-flex align-items-center justify-content-start not-list-bullets ms-auto">
+            <ul
+              class="m-0 p-0 d-none d-lg-flex align-items-center justify-content-start not-list-bullets ms-auto"
+            >
               {% for item in megaMenu %}
                 {% set link = item.fieldLink ?? null %}
+                {% set targetPath =
+                  link.url
+                    |split('?', 2)
+                    |first
+                    |split('#', 2)
+                    |first
+                    |replace({
+                      'http://': '',
+                      'https://': ''
+                    })
+                    |split('/', 2)
+                    |last
+                    |trim('/')
+                %}
+                {% set isActive = currentPath == targetPath
+                  or (targetPath and currentPath starts with targetPath ~ '/')
+                %}
                 {% if link %}
                   <li class="me-3">
-                    <a href="{{ link.url }}"
-                      class="btn px-3 py-2  {{ link.class }}"
+                    <a
+                      href="{{ link.url }}"
+                      class="btn px-3 py-2 {{ link.class }} {{
+                      isActive
+                        ? 'btn-outline-danger'
+                        : null
+                      }}"
                       {{ link.id ? "id=#{link.id}" : null }}
                       {{ link.target ? "target=#{link.target}" : null }}
-                      {{ link.rel ? "rel=#{link.rel}" : null }}>
+                      {{ link.rel ? "rel=#{link.rel}" : null }}
+                    >
                       {{ item.title }}
                     </a>
                   </li>
@@ -36,6 +71,16 @@
               {% endfor %}
             </ul>
           {% endif %}
+          <button
+            class="btn-menu d-block d-lg-none ms-auto hamburger--collapse hamburger"
+            type="button"
+            onclick="eventNavbar(event, this)"
+            data-state="false"
+          >
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
+          </button>
         </nav>
       </div>
     </div>

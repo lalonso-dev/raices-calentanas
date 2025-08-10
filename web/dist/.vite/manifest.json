@@ -1,11 +1,11 @@
 {
   "src/js/app.js": {
-    "file": "app.pydD6D6N.js",
+    "file": "app.tZg9_WhH.js",
     "name": "app",
     "src": "src/js/app.js",
     "isEntry": true,
     "css": [
-      "app.BeNnPax3.css"
+      "app.D9-V07dY.css"
     ]
   },
   "templates/components/biographySlider/script.js": {
@@ -27,21 +27,21 @@
     ]
   },
   "templates/components/featured/script.js": {
-    "file": "js/components/featured.3LU5d-an.js",
+    "file": "js/components/featured.VdhyjI5e.js",
     "name": "js/components/featured",
     "src": "templates/components/featured/script.js",
     "isEntry": true,
     "css": [
-      "featured.CCEdgFjf.css"
+      "featured.D77Qg45h.css"
     ]
   },
   "templates/components/footer/script.js": {
-    "file": "js/components/footer.BHA3PKr5.js",
+    "file": "js/components/footer.1VAw7hha.js",
     "name": "js/components/footer",
     "src": "templates/components/footer/script.js",
     "isEntry": true,
     "css": [
-      "footer.BZh1aH6s.css"
+      "footer.B7XiShuf.css"
     ]
   },
   "templates/components/gratitude/script.js": {
@@ -51,16 +51,16 @@
     "isEntry": true
   },
   "templates/components/header/script.js": {
-    "file": "js/components/header.B5ZsfQ86.js",
+    "file": "js/components/header.DOQeP4mQ.js",
     "name": "js/components/header",
     "src": "templates/components/header/script.js",
     "isEntry": true,
     "css": [
-      "header.BXA4csc8.css"
+      "header.CiCafo1x.css"
     ]
   },
   "templates/components/mastHead/script.js": {
-    "file": "js/components/mastHead.CdAwRAnl.js",
+    "file": "js/components/mastHead.B5TtbW4W.js",
     "name": "js/components/mastHead",
     "src": "templates/components/mastHead/script.js",
     "isEntry": true,
@@ -78,10 +78,13 @@
     ]
   },
   "templates/components/sideBar/script.js": {
-    "file": "js/components/sideBar.l0sNRNKZ.js",
+    "file": "js/components/sideBar.9JGlvaZY.js",
     "name": "js/components/sideBar",
     "src": "templates/components/sideBar/script.js",
-    "isEntry": true
+    "isEntry": true,
+    "css": [
+      "sideBar.BwI24WMJ.css"
+    ]
   },
   "templates/components/textBlock/script.js": {
     "file": "js/components/textBlock.DKfY6--d.js",
@@ -92,10 +95,37 @@
       "textBlock.BVeXCAnA.css"
     ]
   },
+  "templates/pages/aboutUs/script.js": {
+    "file": "js/pages/aboutUs.CncYGrAm.js",
+    "name": "js/pages/aboutUs",
+    "src": "templates/pages/aboutUs/script.js",
+    "isEntry": true,
+    "css": [
+      "aboutUs.CLJF74mZ.css"
+    ]
+  },
   "templates/pages/home/script.js": {
     "file": "js/pages/home.l0sNRNKZ.js",
     "name": "js/pages/home",
     "src": "templates/pages/home/script.js",
     "isEntry": true
+  },
+  "templates/pages/resources/entryResources/script.js": {
+    "file": "js/pages/resources/entryResources.DgdSt4KA.js",
+    "name": "js/pages/resources/entryResources",
+    "src": "templates/pages/resources/entryResources/script.js",
+    "isEntry": true,
+    "css": [
+      "entryResources.DnKsN-Rr.css"
+    ]
+  },
+  "templates/pages/resources/script.js": {
+    "file": "js/pages/resources.Ddsqew26.js",
+    "name": "js/pages/resources",
+    "src": "templates/pages/resources/script.js",
+    "isEntry": true,
+    "css": [
+      "resources.B434XC2v.css"
+    ]
   }
 }

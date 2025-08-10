@@ -1,7 +1,15 @@
-{% embed '_layouts' %}
-  {% block content %}
-    Consectetur illo itaque est facere est itaque rerum labore magnam. Omnis
-    necessitatibus quae sed in blanditiis Quasi quasi veritatis omnis minus
-    eveniet? Repellendus porro animi porro quis atque Saepe magnam?
-  {% endblock %}
-{% endembed %}
+{% extends '_layouts' %}
+
+{% set title = entry.itemTitle ?? '' %}
+{% block content %}
+  {{
+    sprig(
+      'components/bodyResources/index',
+      {
+        title: title
+      }
+    )
+  }}
+
+  {{ craft.vite.script('templates/pages/%s/script.js'|format('resources')) }}
+{% endblock %}

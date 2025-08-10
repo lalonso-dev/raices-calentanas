@@ -1,0 +1,10 @@
+{% extends '_layouts' %}
+
+{% set body = entry.body ?? '' %}
+{% block content %}
+  <div class="container pb-5 pt-4 mb-3">
+    <div class="global-text">
+      {{ body }}
+    </div>
+  </div>
+{% endblock %}

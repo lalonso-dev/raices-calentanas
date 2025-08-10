@@ -1,0 +1,29 @@
+.headroom {
+  position: fixed;
+  width: 100%;
+  left: 0%;
+  top: 0%;
+  will-change: transform;
+  transition: transform 200ms linear;
+  z-index: 99999;
+  background-color: var(--white);
+
+  &--top {
+    box-shadow: none !important;
+  }
+
+  &--pinned {
+    transform: translateY(0%);
+  }
+
+  &--not-bottom {
+    box-shadow: 0 4px 8px 0 rgba(10, 80, 110, 0.1);
+  }
+
+  &--unpinned {
+    transform: translateY(-100%);
+  }
+  &--unfixed {
+    transform: translateY(0);
+  }
+}

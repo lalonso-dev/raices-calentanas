@@ -1,0 +1,53 @@
+@forward "@partials/featuredCard/style";
+
+.entryResources {
+  &__file {
+    min-height: 400px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: var(--white2);
+    @media (max-width: 991.98px) {
+      min-height: auto;
+    }
+  }
+  &__info {
+    .title-2 {
+      --font-size-text: clamp(10px, 4vw, 30px);
+    }
+  }
+  &__description {
+    p {
+      margin: 0.3rem 0;
+    }
+  }
+  &__thanks {
+    background-color: var(--white2);
+  }
+
+  blockquote {
+    position: relative;
+    font-size: 14px;
+    font-style: italic;
+    background-color: var(--white2);
+    border-left: 6px solid #c59d5f;
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  blockquote cite {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #777;
+    text-align: right;
+  }
+  .accordion {
+    --bs-accordion-btn-bg: var(--white2);
+    --bs-accordion-active-color: var(--gray-1);
+  }
+}
