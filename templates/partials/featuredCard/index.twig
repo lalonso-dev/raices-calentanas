@@ -8,6 +8,7 @@
 {% set difficulty = sheet.difficulty ?? '' %}
 {% set format = sheet.format ?? null %}
 {% set statusSheets = sheet.statusSheets ?? null %}
+{% set instrument = sheet.instrument ?? null %}
 
 {% set bodyImage %}
   {% if pdf %}
@@ -35,9 +36,12 @@
       </li>
     {% endif %}
 
-    {% if contentType %}
-      <li class="featuredCard__badges--item px-2 py-1 text-center m-1">
-        {{ contentType.title }}
+    {% if instrument %}
+      <li
+        class="featuredCard__badges--item px-2 py-1 text-center m-1"
+        style="--bg-color-badge: {{ instrument.color }}"
+      >
+        {{ instrument.label }}
       </li>
     {% endif %}
     {% if difficulty %}
@@ -48,9 +52,9 @@
         {{ difficulty.label }}
       </li>
     {% endif %}
-    {% if format %}
+    {% if contentType %}
       <li class="featuredCard__badges--item px-2 py-1 m-1">
-        {{ format.label }}
+        {{ contentType.title }}
       </li>
     {% endif %}
   </ul>
