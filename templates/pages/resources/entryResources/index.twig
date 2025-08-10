@@ -23,7 +23,9 @@
 
 {# Queries #}
 {% set others =
-  craft.entries().section('ResourceEntries').id("not #{entry.id}").limit(
+  craft.entries().section('ResourceEntries').orderBy('postDate desc').id(
+    "not #{entry.id}"
+  ).limit(
     4
   ).all()
 %}

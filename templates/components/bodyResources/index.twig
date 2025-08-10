@@ -17,7 +17,13 @@
 {% set authors = craft.categories().group('authors').all() %}
 {% set contentTypes = craft.categories().group('contentType').all() %}
 {% set genderSheets = craft.categories().group('gender').all() %}
-{% set entries = craft.entries().section('ResourceEntries').limit(8).level(1) %}
+{% set entries =
+  craft.entries().section('ResourceEntries').level(1).orderBy(
+    'postDate desc'
+  ).limit(
+    8
+  )
+%}
 
 {% if categoryId %}
   {% do entries.relatedTo(categoryId) %}
