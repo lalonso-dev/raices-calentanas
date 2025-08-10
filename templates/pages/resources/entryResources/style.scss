@@ -10,6 +10,10 @@
       min-height: auto;
     }
   }
+  &__bodyFile {
+    max-height: 668px;
+    overflow-y: auto;
+  }
   &__info {
     .title-2 {
       --font-size-text: clamp(10px, 4vw, 30px);
